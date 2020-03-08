@@ -1,6 +1,8 @@
 package com.celebrity.challenge.rest_interface;
 
+import com.celebrity.challenge.application.StatisticService;
 import com.celebrity.challenge.application.TeamService;
+import com.celebrity.challenge.application.VoteService;
 import com.celebrity.challenge.domain.Person;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,10 +29,16 @@ public class ApplicationControllerTest {
     @MockBean
     TeamService teamService;
 
+    @MockBean
+    StatisticService statisticService;
+
+    @MockBean
+    VoteService voteService;
+
     @Autowired
     private MockMvc mockMvc;
 
-    private Person testPerson = Person.builder()
+    private final Person testPerson = Person.builder()
             .id(5)
             .name("test name")
             .job("testJob")

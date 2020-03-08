@@ -11,10 +11,8 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -32,11 +30,11 @@ public class StatisticServiceTest {
     @InjectMocks
     StatisticService statisticService;
 
-    private Vote testVote = Vote.builder().id(1).id_person(100).build();
+    private final Vote testVote = Vote.builder().id(1).id_person(100).build();
 
     private List<Vote> totalVotes;
 
-    private Person testPerson = Person.builder()
+    private final Person testPerson = Person.builder()
             .id(5)
             .name("test name")
             .job("testJob")
@@ -81,7 +79,6 @@ public class StatisticServiceTest {
                 .build();
         teamList.add(testPerson2);
         when(voteRepository.findAll()).thenReturn(new ArrayList<>());
-        when(personRepository.findAll()).thenReturn(teamList);
         Person result = statisticService.getMostVotedPerson();
     }
 }

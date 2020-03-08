@@ -30,7 +30,7 @@ public class StatisticService {
 
     static Map<Integer,Long> votesForPersonMap;
 
-    static Comparator<Person> voteComparator = (personA, personB) -> getNumberOfVotes(personA,votesForPersonMap)
+    static final Comparator<Person> voteComparator = (personA, personB) -> getNumberOfVotes(personA,votesForPersonMap)
             .compareTo(getNumberOfVotes(personB,votesForPersonMap)) ;
 
     /**
@@ -54,10 +54,7 @@ public class StatisticService {
                 throw new CelebrityNotFoundException("No one has recognized the celebrity");
         }
         Optional<Person> mostPopularPerson =  personRepository.findAll().stream().max(voteComparator);
-        if(mostPopularPerson.isPresent()){
-            return mostPopularPerson.get();
-        }
-        return null;
+        return mostPopularPerson.orElse(null);
     }
 
     /**

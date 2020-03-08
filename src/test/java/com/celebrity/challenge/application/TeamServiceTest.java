@@ -24,7 +24,7 @@ public class TeamServiceTest {
     @InjectMocks
     private TeamService teamService;
 
-    private Person testPerson = Person.builder()
+    private final Person testPerson = Person.builder()
             .id(5)
             .name("test name")
             .job("testJob")

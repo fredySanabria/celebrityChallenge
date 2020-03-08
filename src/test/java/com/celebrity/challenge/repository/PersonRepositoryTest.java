@@ -15,7 +15,7 @@ public class PersonRepositoryTest {
     @Autowired
     PersonRepository personRepository ;
 
-    private Person testPerson = Person.builder()
+    private final Person testPerson = Person.builder()
             .id(5)
             .name("test name")
             .job("testJob")
