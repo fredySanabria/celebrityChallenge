@@ -1,10 +1,13 @@
 package com.celebrity.challenge.rest_interface;
 
+import com.celebrity.challenge.DTO.PersonDTO;
 import com.celebrity.challenge.application.StatisticService;
 import com.celebrity.challenge.application.TeamService;
 import com.celebrity.challenge.application.VoteService;
 import com.celebrity.challenge.domain.Person;
 import com.celebrity.challenge.domain.Vote;
+import com.celebrity.challenge.exception.CelebrityNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +20,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
+@Slf4j
 public class ApplicationController {
 
     @Autowired
@@ -29,12 +33,12 @@ public class ApplicationController {
     VoteService voteService;
 
     @GetMapping(path = "/team")
-    public List<Person> getTeam() {
+    public List<PersonDTO> getTeam() throws CelebrityNotFoundException {
         return teamService.getTeamList();
     }
 
     @GetMapping(path = "/celebrityInTeam")
-    public Person getCelebrity() {
+    public PersonDTO getCelebrity() throws CelebrityNotFoundException {
         return statisticService.getMostVotedPerson();
     }
 

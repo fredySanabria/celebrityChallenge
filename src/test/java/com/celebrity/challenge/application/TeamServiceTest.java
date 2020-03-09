@@ -1,6 +1,8 @@
 package com.celebrity.challenge.application;
 
+import com.celebrity.challenge.DTO.PersonDTO;
 import com.celebrity.challenge.domain.Person;
+import com.celebrity.challenge.exception.CelebrityNotFoundException;
 import com.celebrity.challenge.repository.PersonRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,16 +12,20 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-import static org.mockito.Mockito.when;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TeamServiceTest {
 
     @Mock
     private PersonRepository personRepository;
+
+    @Mock
+    private VoteService voteService;
 
     @InjectMocks
     private TeamService teamService;
@@ -38,9 +44,10 @@ public class TeamServiceTest {
     }
 
     @Test
-    public void whenControllerSendAllTeamRequestThenReturnExpectedResult(){
+    public void whenControllerSendAllTeamRequestThenReturnExpectedResult() throws CelebrityNotFoundException {
+        when(voteService.getVotes()).thenReturn(new HashMap<>());
         when(personRepository.findAll()).thenReturn(personList);
-        List<Person> resultList = teamService.getTeamList();
+        List<PersonDTO> resultList = teamService.getTeamList();
         assertThat(resultList).isNotNull();
     }
 

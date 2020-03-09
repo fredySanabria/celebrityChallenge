@@ -1,5 +1,6 @@
 package com.celebrity.challenge.rest_interface;
 
+import com.celebrity.challenge.DTO.PersonDTO;
 import com.celebrity.challenge.application.StatisticService;
 import com.celebrity.challenge.application.TeamService;
 import com.celebrity.challenge.application.VoteService;
@@ -38,13 +39,13 @@ public class ApplicationControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    private final Person testPerson = Person.builder()
+    private final PersonDTO testPerson = PersonDTO.builder()
             .id(5)
             .name("test name")
             .job("testJob")
             .image("image.test")
             .build();
-    private List<Person> teamList;
+    private List<PersonDTO> teamList;
     @Before
     public void init(){
         teamList = new ArrayList<>();

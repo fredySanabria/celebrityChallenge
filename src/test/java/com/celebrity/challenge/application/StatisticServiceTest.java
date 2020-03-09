@@ -1,5 +1,6 @@
 package com.celebrity.challenge.application;
 
+import com.celebrity.challenge.DTO.PersonDTO;
 import com.celebrity.challenge.domain.Person;
 import com.celebrity.challenge.domain.Vote;
 import com.celebrity.challenge.exception.CelebrityNotFoundException;
@@ -13,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -22,7 +24,7 @@ import static org.mockito.Mockito.when;
 public class StatisticServiceTest {
 
     @Mock
-    private VoteRepository voteRepository;
+    private VoteService voteService;
 
     @Mock
     private PersonRepository personRepository;
@@ -51,26 +53,17 @@ public class StatisticServiceTest {
     }
 
     @Test
-    public void whenControllerSendAllVotesRequestThenReturnExpectedResult(){
-        when(voteRepository.findAll()).thenReturn(totalVotes);
-        List<Vote> result = statisticService.getVotes();
-        assertThat(result).isNotNull();
-        long totalVotes = result.stream().filter(vote -> vote.getId_person() == 100).count();
-        assertThat(totalVotes).isEqualTo(1L);
-    }
-
-    @Test
-    public void whenControllerSendMostImportantPersonRequestThenReturnExpectedResult(){
-        when(voteRepository.findAll()).thenReturn(totalVotes);
+    public void whenControllerSendMostImportantPersonRequestThenReturnExpectedResult() throws CelebrityNotFoundException {
+        when(voteService.getVotes()).thenReturn(new HashMap<>());
         when(personRepository.findAll()).thenReturn(teamList);
-        Person result = statisticService.getMostVotedPerson();
+        PersonDTO result = statisticService.getMostVotedPerson();
         assertThat(result).isNotNull();
         String celebrityName = result.getName();
         assertThat(celebrityName).isEqualTo("test name");
     }
 
     @Test(expected = CelebrityNotFoundException.class)
-    public void whenControllerSendMostImportantPersonRequestThenReturnException(){
+    public void whenControllerSendMostImportantPersonRequestThenReturnException() throws CelebrityNotFoundException{
         Person testPerson2 = Person.builder()
                 .id(6)
                 .name("other name")
@@ -78,7 +71,7 @@ public class StatisticServiceTest {
                 .image("otherImage.test")
                 .build();
         teamList.add(testPerson2);
-        when(voteRepository.findAll()).thenReturn(new ArrayList<>());
-        Person result = statisticService.getMostVotedPerson();
+        when(voteService.getVotes()).thenThrow(CelebrityNotFoundException.class);
+        PersonDTO result = statisticService.getMostVotedPerson();
     }
 }

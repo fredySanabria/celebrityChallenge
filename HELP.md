@@ -16,10 +16,19 @@ mvn spring-boot:run
 * [See the team list and don't forget the person Id](http://localhost:8080/team)
 * [Vote for the Id Person that you know his name](http://localhost:8080/votes)
 Please use a POST tool for use a Vote API http://localhost:8080/votes: 
-request body example {
+request body example for vote {
                        "id": "",
                        "id_person": "101"
                      }
+                     
+ 
+ * Please use a POST tool for use a Person API http://localhost:8080/team/person:                    
+request body example for add Person {
+                                    	"id": "",
+                                    	"name": "Fredy Sanabria",
+                                    	"job": "Java Developer",
+                                    	"image": "fredy.png"
+                                    }       
 * [See the most voted person](http://localhost:8080/celebrityInTeam)
 
 
