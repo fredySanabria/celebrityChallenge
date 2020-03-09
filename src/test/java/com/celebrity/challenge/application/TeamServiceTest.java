@@ -43,4 +43,12 @@ public class TeamServiceTest {
         List<Person> resultList = teamService.getTeamList();
         assertThat(resultList).isNotNull();
     }
+
+    @Test
+    public void whenControllerSendCreatePersonRequestThenReturnExpectedResult(){
+        when(personRepository.save(testPerson)).thenReturn(testPerson);
+        Person result = teamService.addPerson(testPerson);
+        assertThat(result).isNotNull();
+        assertThat(result.getName()).isEqualTo("test name");
+    }
 }

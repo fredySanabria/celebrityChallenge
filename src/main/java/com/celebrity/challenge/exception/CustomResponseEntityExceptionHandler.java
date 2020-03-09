@@ -24,7 +24,7 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
     }
 
     @ExceptionHandler(TeamNotFoundException.class)
-    public final ResponseEntity<Object> handleTeamNotFoundExceptions(TeamNotFoundException exception, WebRequest request) {
+    public final ResponseEntity<Object> handleTeamNotFoundExceptions(CelebrityNotFoundException exception, WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), exception.getMessage(), request.getDescription(false));
         return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
     }

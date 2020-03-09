@@ -28,12 +28,12 @@ public class ApplicationController {
     @Autowired
     VoteService voteService;
 
-    @GetMapping( path = "/team")
+    @GetMapping(path = "/team")
     public List<Person> getTeam() {
         return teamService.getTeamList();
     }
 
-    @GetMapping( path = "/celebrityInTeam")
+    @GetMapping(path = "/celebrityInTeam")
     public Person getCelebrity() {
         return statisticService.getMostVotedPerson();
     }
@@ -41,6 +41,17 @@ public class ApplicationController {
     @PostMapping("/votes")
     public void createVote(@RequestBody Vote newVote) {
         voteService.addVote(newVote);
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/team")
+                .build()
+                .toUri();
+        ResponseEntity.created(location).build();
+    }
+
+    @PostMapping("/team/person")
+    public void createPerson(@RequestBody Person newPerson) {
+        teamService.addPerson(newPerson);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/team")

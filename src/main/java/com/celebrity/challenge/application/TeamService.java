@@ -22,4 +22,12 @@ public class TeamService {
     public List<Person> getTeamList(){
         return personRepository.findAll();
     }
+
+    /**
+     * This method creates a person
+     * @param newPerson
+     */
+    public Person addPerson(Person newPerson) {
+        return personRepository.save(newPerson);
+    }
 }
