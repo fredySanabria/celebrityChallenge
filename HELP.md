@@ -1,7 +1,7 @@
 # I know your name!
 A DDD practical example first version
 ### Celebrity Challenge
-Inside a team exist a celebrity, the application will discover a celebrity using a vote system
+Inside a team exist a celebrity, the application will discover a celebrity using a vote system or by know names
 
 ### How Run the application?
 Celebrity Challenge is a Spring Boot Application,
@@ -12,24 +12,10 @@ mvn package
 
 mvn spring-boot:run
 
-### Steps
-* [See the team list and don't forget the person Id](http://localhost:8080/team)
-* [Vote for the Id Person that you know his name](http://localhost:8080/votes)
-Please use a POST tool for use a Vote API http://localhost:8080/votes: 
-request body example for vote {
-                       "id": "",
-                       "id_person": "101"
-                     }
-                     
- 
- * Please use a POST tool for use a Person API http://localhost:8080/team/person:                    
-request body example for add Person {
-                                    	"id": "",
-                                    	"name": "Fredy Sanabria",
-                                    	"job": "Java Developer",
-                                    	"image": "fredy.png"
-                                    }       
-* [See the most voted person](http://localhost:8080/celebrityInTeam)
+### Swagger Documentation
+http://localhost:8080/swagger-ui.html   
+* [See the most voted person](http://localhost:8080/celebrityInTeam) Votes Approach
+* [See celebrity by name person](http://localhost:8080/celebrityInTeamByName) Known-names Approach
 
 
 ### References

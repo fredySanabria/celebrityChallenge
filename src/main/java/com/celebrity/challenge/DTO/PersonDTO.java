@@ -11,4 +11,5 @@ public class PersonDTO {
     private String job;
     private String image;
     private Long votes;
+    private Long followers;
 }

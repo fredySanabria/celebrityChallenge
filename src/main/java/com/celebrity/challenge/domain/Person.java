@@ -1,10 +1,13 @@
 package com.celebrity.challenge.domain;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Builder(toBuilder = true)
@@ -19,4 +22,6 @@ public class Person {
     private String name;
     private String job;
     private String image;
+    @ElementCollection
+    private List<String> namesInMind;
 }

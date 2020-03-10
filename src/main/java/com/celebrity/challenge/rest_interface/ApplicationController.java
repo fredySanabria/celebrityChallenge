@@ -42,6 +42,11 @@ public class ApplicationController {
         return statisticService.getMostVotedPerson();
     }
 
+    @GetMapping(path = "/celebrityInTeamByName")
+    public PersonDTO getCelebrityByName() throws CelebrityNotFoundException {
+        return statisticService.getCelebrityByName();
+    }
+
     @PostMapping("/votes")
     public void createVote(@RequestBody Vote newVote) {
         voteService.addVote(newVote);

@@ -5,7 +5,6 @@ import com.celebrity.challenge.domain.Person;
 import com.celebrity.challenge.domain.Vote;
 import com.celebrity.challenge.exception.CelebrityNotFoundException;
 import com.celebrity.challenge.repository.PersonRepository;
-import com.celebrity.challenge.repository.VoteRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -41,7 +41,16 @@ public class StatisticServiceTest {
             .name("test name")
             .job("testJob")
             .image("image.test")
+            .namesInMind(Arrays.asList("other name"))
             .build();
+    private final Person testPerson2 = Person.builder()
+            .id(6)
+            .name("other name")
+            .job("otherJob")
+            .image("otherImage.test")
+            .namesInMind(Arrays.asList("NoName"))
+            .build();
+
     private List<Person> teamList;
 
     @Before
@@ -50,6 +59,7 @@ public class StatisticServiceTest {
         totalVotes.add(testVote);
         teamList = new ArrayList<>();
         teamList.add(testPerson);
+        teamList.add(testPerson2);
     }
 
     @Test
@@ -64,14 +74,16 @@ public class StatisticServiceTest {
 
     @Test(expected = CelebrityNotFoundException.class)
     public void whenControllerSendMostImportantPersonRequestThenReturnException() throws CelebrityNotFoundException{
-        Person testPerson2 = Person.builder()
-                .id(6)
-                .name("other name")
-                .job("otherJob")
-                .image("otherImage.test")
-                .build();
-        teamList.add(testPerson2);
         when(voteService.getVotes()).thenThrow(CelebrityNotFoundException.class);
         PersonDTO result = statisticService.getMostVotedPerson();
+    }
+
+    @Test
+    public void whenControllerSendMostImportantPersonByNameRequestThenReturnExpectedResult() throws CelebrityNotFoundException {
+        when(personRepository.findAll()).thenReturn(teamList);
+        PersonDTO result = statisticService.getCelebrityByName();
+        assertThat(result).isNotNull();
+        String celebrityName = result.getName();
+        assertThat(celebrityName).isEqualTo("other name");
     }
 }

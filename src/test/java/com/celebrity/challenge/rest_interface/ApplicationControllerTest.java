@@ -61,4 +61,14 @@ public class ApplicationControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string(containsString("test name")));
     }
+
+    @Test
+    public void whenBrowserSendMostImportantPersonByNamePetitionThenReturnExpectedResult() throws Exception {
+        when(statisticService.getCelebrityByName()).thenReturn(testPerson);
+        mockMvc.perform( MockMvcRequestBuilders
+                .get("/celebrityInTeamByName")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string(containsString("test name")));
+    }
 }
